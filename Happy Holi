@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Holi, Anshu!</title>
+  <style>
+    /* Global Styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #ff5722, #3f51b5, #4caf50, #f44336);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Gradient Animation */
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: white;
+      text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-out;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .colorful {
+      font-size: 4rem;
+      padding: 20px;
+      border-radius: 50%;
+      margin: 10px;
+      display: inline-block;
+      animation: bounce 1s infinite;
+    }
+
+    .colorful:nth-child(1) { background-color: #FF5722; }
+    .colorful:nth-child(2) { background-color: #3F51B5; }
+    .colorful:nth-child(3) { background-color: #4CAF50; }
+    .colorful:nth-child(4) { background-color: #F44336; }
+
+    /* Bounce Animation */
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Button */
+    .celebrate-btn {
+      background-color: #FFEB3B;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    .celebrate-btn:hover {
+      background-color: #fbc02d;
+    }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      color: white;
+      z-index: 3;
+      text-align: center;
+    }
+
+    .popup h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .popup p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .popup button {
+      background-color: #F44336;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .popup button:hover {
+      background-color: #D32F2F;
+    }
+
+    /* Confetti & Particle Effects */
+    .confetti, .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: moveParticle 3s infinite ease-in-out;
+    }
+
+    @keyframes moveParticle {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(100vw * 0.5), calc(100vh * 0.5));
+        opacity: 0;
+      }
+    }
+
+    .confetti {
+      background-color: #FFEB3B;
+      animation: confettiFall 2s infinite ease;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* Particle animation on mouse movement */
+    .particle {
+      background-color: #FFEB3B;
+      width: 8px;
+      height: 8px;
+      animation: randomMovement 2s ease-out;
+    }
+
+   /* Remove the randomMovement animation from CSS */
+.particle {
+  background-color: #FFEB3B;
+  width: 8px;
+  height: 8px;
+  animation: randomMovement 2s ease-out; /* Remove this line */
+}
+
+/* No need for randomMovement keyframes in CSS */
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Happy Holi, Anshu!</h1>
+    <p class="message">Wishing you a colorful, joyful, and vibrant Holi with love and happiness!</p>
+    <div>
+      <span class="colorful">🎉</span>
+      <span class="colorful">💥</span>
+      <span class="colorful">🌈</span>
+      <span class="colorful">🌸</span>
+    </div>
+    <button class="celebrate-btn" onclick="celebrateHoli()">Click to Celebrate, Anshu!</button>
+  </div>
+
+  <div class="popup" id="popup">
+    <h2>Holi Wishes for You, Anshu!</h2>
+    <p>May your life be filled with the brightest colors of joy and happiness. Enjoy the festival of colors!</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <script>
+    // Function to trigger Holi celebration
+    function celebrateHoli() {
+      document.body.style.animation = 'none'; // Stop gradient animation for celebration
+
+      // Show popup
+      document.getElementById('popup').style.display = 'block';
+
+      // Create confetti
+      createConfetti();
+
+      // Disable the button after clicking
+      document.querySelector('.celebrate-btn').disabled = true;
+      document.querySelector('.celebrate-btn').innerText = "Celebrating...";
+
+      // Trigger particle effect
+      triggerParticles();
+
+      // Wait for celebration effect to finish
+      setTimeout(() => {
+        resetPage();
+      }, 3000);
+    }
+
+    // Reset page after celebration
+    function resetPage() {
+      document.body.style.animation = 'gradientAnimation 10s ease infinite';
+      document.querySelector('.celebrate-btn').disabled = false;
+      document.querySelector('.celebrate-btn').innerText = "Click to Celebrate, Anshu!";
+    }
+
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#FF5722', '#FFEB3B', '#3F51B5', '#4CAF50', '#F44336'];
+      const confettiContainer = document.body;
+
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confettiContainer.appendChild(confetti);
+      }
+    }
+
+    // Trigger mouse movement particles
+    function triggerParticles() {
+      document.addEventListener('mousemove', (e) => {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = e.pageX + 'px';
+        particle.style.top = e.pageY + 'px';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      });
+    }
+
+    // Close the popup
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Holi, Anshu!</title>
+  <style>
+    /* Global Styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #ff5722, #3f51b5, #4caf50, #f44336);
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Gradient Animation */
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: white;
+      text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-out;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .colorful {
+      font-size: 4rem;
+      padding: 20px;
+      border-radius: 50%;
+      margin: 10px;
+      display: inline-block;
+      animation: bounce 1s infinite;
+    }
+
+    .colorful:nth-child(1) { background-color: #FF5722; }
+    .colorful:nth-child(2) { background-color: #3F51B5; }
+    .colorful:nth-child(3) { background-color: #4CAF50; }
+    .colorful:nth-child(4) { background-color: #F44336; }
+
+    /* Bounce Animation */
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Button */
+    .celebrate-btn {
+      background-color: #FFEB3B;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    .celebrate-btn:hover {
+      background-color: #fbc02d;
+    }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      color: white;
+      z-index: 3;
+      text-align: center;
+    }
+
+    .popup h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .popup p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .popup button {
+      background-color: #F44336;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .popup button:hover {
+      background-color: #D32F2F;
+    }
+
+    /* Confetti & Particle Effects */
+    .confetti, .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: moveParticle 3s infinite ease-in-out;
+    }
+
+    @keyframes moveParticle {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(100vw * 0.5), calc(100vh * 0.5));
+        opacity: 0;
+      }
+    }
+
+    .confetti {
+      background-color: #FFEB3B;
+      animation: confettiFall 2s infinite ease;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-100vh); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* Particle animation on mouse movement */
+    .particle {
+      background-color: #FFEB3B;
+      width: 8px;
+      height: 8px;
+      animation: randomMovement 2s ease-out;
+    }
+
+   /* Remove the randomMovement animation from CSS */
+.particle {
+  background-color: #FFEB3B;
+  width: 8px;
+  height: 8px;
+  animation: randomMovement 2s ease-out; /* Remove this line */
+}
+
+/* No need for randomMovement keyframes in CSS */
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Happy Holi, Anshu!</h1>
+    <p class="message">Wishing you a colorful, joyful, and vibrant Holi with love and happiness!</p>
+    <div>
+      <span class="colorful">🎉</span>
+      <span class="colorful">💥</span>
+      <span class="colorful">🌈</span>
+      <span class="colorful">🌸</span>
+    </div>
+    <button class="celebrate-btn" onclick="celebrateHoli()">Click to Celebrate, Anshu!</button>
+  </div>
+
+  <div class="popup" id="popup">
+    <h2>Holi Wishes for You, Anshu!</h2>
+    <p>May your life be filled with the brightest colors of joy and happiness. Enjoy the festival of colors!</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <script>
+    // Function to trigger Holi celebration
+    function celebrateHoli() {
+      document.body.style.animation = 'none'; // Stop gradient animation for celebration
+
+      // Show popup
+      document.getElementById('popup').style.display = 'block';
+
+      // Create confetti
+      createConfetti();
+
+      // Disable the button after clicking
+      document.querySelector('.celebrate-btn').disabled = true;
+      document.querySelector('.celebrate-btn').innerText = "Celebrating...";
+
+      // Trigger particle effect
+      triggerParticles();
+
+      // Wait for celebration effect to finish
+      setTimeout(() => {
+        resetPage();
+      }, 3000);
+    }
+
+    // Reset page after celebration
+    function resetPage() {
+      document.body.style.animation = 'gradientAnimation 10s ease infinite';
+      document.querySelector('.celebrate-btn').disabled = false;
+      document.querySelector('.celebrate-btn').innerText = "Click to Celebrate, Anshu!";
+    }
+
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#FF5722', '#FFEB3B', '#3F51B5', '#4CAF50', '#F44336'];
+      const confettiContainer = document.body;
+
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confettiContainer.appendChild(confetti);
+      }
+    }
+
+    // Trigger mouse movement particles
+    function triggerParticles() {
+      document.addEventListener('mousemove', (e) => {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = e.pageX + 'px';
+        particle.style.top = e.pageY + 'px';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      });
+    }
+
+    // Close the popup
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
